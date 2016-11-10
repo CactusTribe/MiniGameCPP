@@ -6,13 +6,12 @@
 
 class Taquin : public Jeux{
 public:
-	Taquin(std::string name, int window_size, int grid_size, Joueur* j1);
+	Taquin(std::string name, int window_size, int grid_size, Joueur& j);
 	~Taquin();
 
 	void init();
 	void startGame();
 	void eventLoop();
-	void update();
 
 private:
 	int m_blank_X = 0;

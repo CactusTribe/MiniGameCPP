@@ -7,7 +7,7 @@
 
 using namespace sf;
 
-Taquin::Taquin(std::string name, int window_size, int grid_size, Joueur* j1) : Jeux(name, window_size, grid_size, j1){
+Taquin::Taquin(std::string name, int window_size, int grid_size, Joueur& j) : Jeux(name, window_size, grid_size, j){
 
 	srand (time(NULL));
 }
@@ -46,10 +46,9 @@ void Taquin::init(){
 void Taquin::startGame(){
 	std::cout << *this;
 	update();
-	
+
 	// Boucle principale
 	while (m_app->isOpen()){
-		
 		eventLoop();
 		sleep(milliseconds(10));
 	}
@@ -137,23 +136,4 @@ void Taquin::eventLoop(){
 
 		}
 	}
-}
-
-void Taquin::update(){
-
-	// Remplissage de l'écran
-	m_app->clear(Color(255, 255, 255));
-
-	int grid_size = m_grille.getSize();
-	int case_size = m_window_size / grid_size;
-
-	// Affichage de la grille
-	for(int i=0; i < grid_size; i++){
-		for(int j=0; j < grid_size; j++){
-			m_grille.get(j,i).draw(m_app, case_size, j*case_size, i*case_size);
-		}
-	}
-
-	// Affichage de la fenêtre à l'écran
-	m_app->display();
 }

@@ -52,6 +52,7 @@ void Case::draw(sf::RenderTarget* target, int size, int x, int y){
 
 			target->draw(value);
 		break;
+
 	}
 }
 
