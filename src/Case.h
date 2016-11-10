@@ -1,6 +1,7 @@
 #ifndef CASE_H
 #define CASE_H
 
+#include <SFML/Graphics.hpp>
 #include "CaseType.h"
 
 class Case{
@@ -10,6 +11,8 @@ public:
 
 	CaseType getType();
 	int getValue();
+	void setValue(int i);
+	void draw(sf::RenderTarget* target, int size, int x, int y);
 
 private:
 	int m_value = 0;

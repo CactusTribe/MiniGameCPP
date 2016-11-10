@@ -46,12 +46,11 @@ void Taquin::init(){
 void Taquin::startGame(){
 	std::cout << *this;
 
+	update();
 	// Boucle principale
 	while (m_app->isOpen()){
 		
 		eventLoop();
-		update();
-
 		sleep(milliseconds(10));
 	}
 }
@@ -78,6 +77,8 @@ void Taquin::eventLoop(){
 						m_grille.changeCase(Case(CaseType::EMPTY, 0), old_x, old_y);
 						m_blank_X = old_x;
 						m_blank_Y = old_y;
+
+						update();
 					}
 
 				break;
@@ -92,12 +93,14 @@ void Taquin::eventLoop(){
 						m_grille.changeCase(Case(CaseType::EMPTY, 0), old_x, old_y);
 						m_blank_X = old_x;
 						m_blank_Y = old_y;
+
+						update();
 					}
 
 				break;
 
 				case Keyboard::Left :
-				
+
 					if(m_blank_X < m_grille.getSize()-1){
 						int old_x = m_blank_X+1;
 						int old_y = m_blank_Y;
@@ -106,6 +109,8 @@ void Taquin::eventLoop(){
 						m_grille.changeCase(Case(CaseType::EMPTY, 0), old_x, old_y);
 						m_blank_X = old_x;
 						m_blank_Y = old_y;
+
+						update();
 					}
 
 				break;
@@ -120,6 +125,8 @@ void Taquin::eventLoop(){
 						m_grille.changeCase(Case(CaseType::EMPTY, 0), old_x, old_y);
 						m_blank_X = old_x;
 						m_blank_Y = old_y;
+
+						update();
 					}
 
 				break;
@@ -133,9 +140,6 @@ void Taquin::eventLoop(){
 }
 
 void Taquin::update(){
-	//std::cout << m_grille;
-	Font font;
-	font.loadFromFile("fonts/verdana.ttf");
 
 	// Remplissage de l'écran
 	m_app->clear(Color(255, 255, 255));
@@ -146,36 +150,7 @@ void Taquin::update(){
 	// Affichage de la grille
 	for(int i=0; i < grid_size; i++){
 		for(int j=0; j < grid_size; j++){
-
-			RectangleShape rectangle(Vector2f(case_size, case_size));
-			rectangle.setPosition(j*case_size, i*case_size);
-			rectangle.setFillColor(Color(235, 214, 177));
-			rectangle.setOutlineThickness(2);
-			rectangle.setOutlineColor(Color(130, 113, 84));
-
-			m_app->draw(rectangle);
-
-			if(m_grille.get(j,i).getType() == CaseType::INTEGER){
-
-				// Mise en forme du texte
-				Text value;
-				value.setFont(font);
-				value.setString( std::to_string(m_grille.get(j,i).getValue()) );
-				value.setCharacterSize(30);
-				value.setColor(Color(130, 113, 84));
-				value.setStyle(Text::Bold);
-
-				// Placement du texte 
-				FloatRect rect = value.getLocalBounds();
-				value.setOrigin(rect.left + rect.width/2.0f, rect.top + rect.height/2.0f);
-
-				value.setPosition( (j*case_size) + (case_size / 2), (i*case_size) + (case_size / 2));
-
-
-				m_app->draw(value);
-
-			}
-
+			m_grille.get(j,i).draw(m_app, case_size, j*case_size, i*case_size);
 		}
 	}
 
