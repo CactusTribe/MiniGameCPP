@@ -7,13 +7,15 @@
 
 class Grille{
 public:
-	Grille(int largeur);
+	Grille(int size);
 	~Grille();
 
-	bool changeCase(Case c, int i, int j);
+	Case get(int x, int y);
+	int getSize();
+	bool changeCase(Case c, int x, int y);
 
 private:
-	int m_largeur = 0;
+	int m_size = 0;
 	std::vector<std::vector<Case>> m_matrice;
 
 friend std::ostream& operator<<(std::ostream& out, const Grille& g);

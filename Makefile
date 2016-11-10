@@ -5,13 +5,21 @@ SRC_DIR = src
 BIN_DIR = bin
 EXEC_FILE= $(BIN_DIR)/$(EXEC)
 
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	LIBFLAGS = -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
+endif
+ifeq ($(UNAME_S),Darwin)
+	LIBFLAGS = -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
+endif
+
 SRC_FILES= $(wildcard $(SRC_DIR)/**.cpp) $(wildcard $(SRC_DIR)/**/**.cpp) $(wildcard $(SRC_DIR)/**/**/**.cpp) $(wildcard $(SRC_DIR)/**/**/**/**.cpp) 
 OBJ_FILES= $(patsubst %.cpp, %.o,  $(subst $(SRC_DIR), $(BIN_DIR),$(SRC_FILES)))
 
 all: $(EXEC_FILE)
 
 $(EXEC_FILE): $(OBJ_FILES)
-	$(CPP) -o $@ $^
+	$(CPP) -o $@ $^ $(LIBFLAGS)
 
 $(OBJ_FILES): $(BIN_DIR)/%.o : $(SRC_DIR)/%.cpp
 	@mkdir -p $(dir $@)

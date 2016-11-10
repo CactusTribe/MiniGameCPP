@@ -1,16 +1,22 @@
 #include <iostream>
 #include "Jeux.h"
 
-Jeux::Jeux(int gridSize, Joueur* j1) : m_player1(j1), m_current_player(j1), m_grille(Grille(gridSize)){
+Jeux::Jeux(std::string name, int window_size, int gridSize, Joueur* j1) : 
+		m_name(name), m_window_size(window_size), m_player1(j1), m_current_player(j1), m_grille(Grille(gridSize)){
+
 	m_nb_players = 1;
+	m_app = new sf::RenderWindow(sf::VideoMode(m_window_size, m_window_size, 32), m_name);
 }
 
-Jeux::Jeux(int gridSize, Joueur* j1, Joueur* j2) : m_player1(j1), m_player2(j2), m_current_player(j1), m_grille(Grille(gridSize)){
+Jeux::Jeux(std::string name, int window_size, int gridSize, Joueur* j1, Joueur* j2) : 
+		m_name(name), m_window_size(window_size), m_player1(j1), m_player2(j2), m_current_player(j1), m_grille(Grille(gridSize)){
+
 	m_nb_players = 2;
+	m_app = new sf::RenderWindow(sf::VideoMode(m_window_size, m_window_size, 32), m_name);
 }
 
 Jeux::~Jeux(){
-
+	delete m_app;
 }
 
 std::ostream& operator<<(std::ostream& out, const Jeux& j){

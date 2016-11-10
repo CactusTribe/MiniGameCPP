@@ -8,6 +8,9 @@ public:
 	Case(CaseType type, int value);
 	~Case();
 
+	CaseType getType();
+	int getValue();
+
 private:
 	int m_value = 0;
 	CaseType m_type;

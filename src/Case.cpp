@@ -9,6 +9,14 @@ Case::~Case(){
 
 }
 
+CaseType Case::getType(){
+	return m_type;
+}
+
+int Case::getValue(){
+	return m_value;
+}
+
 
 std::ostream& operator<<(std::ostream& out, const Case& c){
 	switch(c.m_type){
