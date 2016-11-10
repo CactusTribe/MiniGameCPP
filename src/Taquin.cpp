@@ -45,8 +45,8 @@ void Taquin::init(){
 
 void Taquin::startGame(){
 	std::cout << *this;
-
 	update();
+	
 	// Boucle principale
 	while (m_app->isOpen()){
 		
