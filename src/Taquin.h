@@ -10,10 +10,11 @@ public:
 	~Taquin();
 
 	void init();
-	void startGame();
-	void eventLoop();
 
 private:
+	void human_loop(sf::Event e);
+	void computer_loop();
+	
 	int m_blank_X = 0;
 	int m_blank_Y = 0;
 };

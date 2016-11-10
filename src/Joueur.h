@@ -10,6 +10,7 @@ public:
 	~Joueur();
 
 	std::string getName();
+	JoueurType getType();
 
 private:
 	std::string m_name;

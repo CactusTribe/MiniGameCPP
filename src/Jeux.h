@@ -12,11 +12,37 @@ public:
 	~Jeux();
 
 	virtual void init() = 0;
-	virtual void startGame() = 0;
-	virtual void eventLoop() = 0;
+
+	virtual void start(){
+		std::cout << *this;
+		update();
+
+		// Boucle principale
+		while (m_app->isOpen()){
+
+			sf::Event event;
+			while (m_app->pollEvent(event)){
+				if (event.type == sf::Event::Closed){
+					m_app->close();
+					break;
+				}
+
+				// Actions humaines ou de l'ordinateur
+				if(m_player.getType() == JoueurType::HUMAN)
+					human_loop(event);
+				else if(m_player.getType() == JoueurType::COMPUTER)
+					computer_loop();
+			}
+
+			sleep(sf::milliseconds(10));
+		}
+	}
 	
 protected:
 
+	virtual void human_loop(sf::Event e) = 0;
+	virtual void computer_loop() = 0;
+	
 	virtual void update(){
 		// Remplissage de l'écran
 		m_app->clear(sf::Color(255, 255, 255));
@@ -33,6 +59,7 @@ protected:
 		// Affichage de la fenêtre à l'écran
 		m_app->display();
 	}
+
 
 	std::string m_name = "";
 	int m_window_size = 0;

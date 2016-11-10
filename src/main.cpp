@@ -1,6 +1,5 @@
 #include <iostream>
-#include "Joueur.h"
-#include "JoueurType.h"
+#include "SuperGame.h"
 #include "Taquin.h"
 
 using namespace std;
@@ -12,7 +11,7 @@ int main(){
 
 	Taquin taquin("Taquin", 400, 4, j1);
 	taquin.init();
-	taquin.startGame();
+	taquin.start();
 
 	return 0;
 }

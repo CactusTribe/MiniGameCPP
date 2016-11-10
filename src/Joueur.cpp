@@ -13,6 +13,10 @@ std::string Joueur::getName(){
 	return m_name;
 }
 
+JoueurType Joueur::getType(){
+	return m_type;
+}
+
 std::ostream& operator<<(std::ostream& out, const Joueur& j){
 
 	out << "# " << j.m_name << " - ";

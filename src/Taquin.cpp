@@ -1,9 +1,9 @@
 #include <iostream>
-#include <SFML/Graphics.hpp>
 #include <stdlib.h>
 #include <vector>
 #include "Taquin.h"
-#include "CaseType.h"
+#include "SuperGame.h"
+
 
 using namespace sf;
 
@@ -43,97 +43,74 @@ void Taquin::init(){
 	}
 }
 
-void Taquin::startGame(){
-	std::cout << *this;
-	update();
+void Taquin::human_loop(Event e){
+	if(e.type == Event::KeyPressed){
 
-	// Boucle principale
-	while (m_app->isOpen()){
-		eventLoop();
-		sleep(milliseconds(10));
-	}
-}
+		switch(e.key.code){
 
-void Taquin::eventLoop(){
-	Event event;
+			case Keyboard::Up :
+				if(m_blank_Y < m_grille.getSize()-1){
+					int old_x = m_blank_X;
+					int old_y = m_blank_Y+1;
 
-	while (m_app->pollEvent(event)){
+					m_grille.changeCase(m_grille.get(old_x, old_y), m_blank_X, m_blank_Y);
+					m_grille.changeCase(Case(CaseType::EMPTY, 0), old_x, old_y);
+					m_blank_X = old_x;
+					m_blank_Y = old_y;
 
-		if (event.type == Event::Closed)
-			m_app->close();
+					update();
+				}
+			break;
 
-		else if(event.type == Event::KeyPressed){
+			case Keyboard::Down :
+				if(m_blank_Y > 0){
+					int old_x = m_blank_X;
+					int old_y = m_blank_Y-1;
 
-			switch(event.key.code){
+					m_grille.changeCase(m_grille.get(old_x, old_y), m_blank_X, m_blank_Y);
+					m_grille.changeCase(Case(CaseType::EMPTY, 0), old_x, old_y);
+					m_blank_X = old_x;
+					m_blank_Y = old_y;
 
-				case Keyboard::Up :
+					update();
+				}
+			break;
 
-					if(m_blank_Y < m_grille.getSize()-1){
-						int old_x = m_blank_X;
-						int old_y = m_blank_Y+1;
+			case Keyboard::Left :
+				if(m_blank_X < m_grille.getSize()-1){
+					int old_x = m_blank_X+1;
+					int old_y = m_blank_Y;
 
-						m_grille.changeCase(m_grille.get(old_x, old_y), m_blank_X, m_blank_Y);
-						m_grille.changeCase(Case(CaseType::EMPTY, 0), old_x, old_y);
-						m_blank_X = old_x;
-						m_blank_Y = old_y;
+					m_grille.changeCase(m_grille.get(old_x, old_y), m_blank_X, m_blank_Y);
+					m_grille.changeCase(Case(CaseType::EMPTY, 0), old_x, old_y);
+					m_blank_X = old_x;
+					m_blank_Y = old_y;
 
-						update();
-					}
+					update();
+				}
+			break;
 
-				break;
+			case Keyboard::Right :
+				if(m_blank_X > 0){
+					int old_x = m_blank_X-1;
+					int old_y = m_blank_Y;
 
-				case Keyboard::Down :
+					m_grille.changeCase(m_grille.get(old_x, old_y), m_blank_X, m_blank_Y);
+					m_grille.changeCase(Case(CaseType::EMPTY, 0), old_x, old_y);
+					m_blank_X = old_x;
+					m_blank_Y = old_y;
 
-					if(m_blank_Y > 0){
-						int old_x = m_blank_X;
-						int old_y = m_blank_Y-1;
+					update();
+				}
+			break;
 
-						m_grille.changeCase(m_grille.get(old_x, old_y), m_blank_X, m_blank_Y);
-						m_grille.changeCase(Case(CaseType::EMPTY, 0), old_x, old_y);
-						m_blank_X = old_x;
-						m_blank_Y = old_y;
-
-						update();
-					}
-
-				break;
-
-				case Keyboard::Left :
-
-					if(m_blank_X < m_grille.getSize()-1){
-						int old_x = m_blank_X+1;
-						int old_y = m_blank_Y;
-
-						m_grille.changeCase(m_grille.get(old_x, old_y), m_blank_X, m_blank_Y);
-						m_grille.changeCase(Case(CaseType::EMPTY, 0), old_x, old_y);
-						m_blank_X = old_x;
-						m_blank_Y = old_y;
-
-						update();
-					}
-
-				break;
-
-				case Keyboard::Right :
-
-					if(m_blank_X > 0){
-						int old_x = m_blank_X-1;
-						int old_y = m_blank_Y;
-
-						m_grille.changeCase(m_grille.get(old_x, old_y), m_blank_X, m_blank_Y);
-						m_grille.changeCase(Case(CaseType::EMPTY, 0), old_x, old_y);
-						m_blank_X = old_x;
-						m_blank_Y = old_y;
-
-						update();
-					}
-
-				break;
-
-				default:
-				break;
-			}
-
+			default:
+			break;
 		}
 	}
 }
+
+void Taquin::computer_loop(){
+
+}
+
