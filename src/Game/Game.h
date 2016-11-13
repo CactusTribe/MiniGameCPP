@@ -3,13 +3,13 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
-#include "Joueur.h"
-#include "Board.h"
+#include "../Player/Player.h"
+#include "../Board/Board.h"
 
-class Jeux{
+class Game{
 public:
-  Jeux(std::string name, int window_size, int gridSize, Joueur& j);
-  ~Jeux();
+  Game(std::string name, int window_size, int gridSize, Player& j);
+  ~Game();
 
   virtual void init() = 0;
 
@@ -28,9 +28,9 @@ public:
         }
 
         // Actions humaines ou de l'ordinateur
-        if(m_player.getType() == JoueurType::HUMAN)
+        if(m_player.getType() == PlayerType::HUMAN)
           human_loop(event);
-        else if(m_player.getType() == JoueurType::COMPUTER)
+        else if(m_player.getType() == PlayerType::COMPUTER)
           computer_loop();
       }
 
@@ -70,9 +70,9 @@ protected:
   int m_window_size = 0;
   sf::RenderWindow* m_app;
   Board m_grille;
-  Joueur& m_player;
+  Player& m_player;
 
-friend std::ostream& operator<<(std::ostream& out, const Jeux& j);
+friend std::ostream& operator<<(std::ostream& out, const Game& j);
 };
 
-#endif 
+#endif

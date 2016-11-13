@@ -2,12 +2,10 @@
 #include <stdlib.h>
 #include <vector>
 #include "Taquin.h"
-#include "SuperGame.h"
-
 
 using namespace sf;
 
-Taquin::Taquin(std::string name, int window_size, int grid_size, Joueur& j) : Jeux(name, window_size, grid_size, j){
+Taquin::Taquin(std::string name, int window_size, int grid_size, Player& j) : Game(name, window_size, grid_size, j){
 
   srand (time(NULL));
 }

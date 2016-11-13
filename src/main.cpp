@@ -1,15 +1,17 @@
 #include <iostream>
-#include "SuperGame.h"
-#include "Taquin.h"
+#include "Game/Taquin.h"
 
 using namespace std;
 
 int main(){
 
-  Joueur j1("Joueur 1", JoueurType::HUMAN);
-  Joueur j2("Joueur 2", JoueurType::COMPUTER);
+  Player j1("Human", PlayerType::HUMAN);
+  Player j2("Robot", PlayerType::COMPUTER);
 
   Taquin taquin("Taquin", 400, 4, j1);
+
+
+
   taquin.init();
   taquin.start();
 

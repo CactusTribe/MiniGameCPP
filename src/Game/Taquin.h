@@ -2,11 +2,11 @@
 #define TAQUIN_H
 
 #include <string>
-#include "Jeux.h"
+#include "Game.h"
 
-class Taquin : public Jeux{
+class Taquin : public Game{
 public:
-  Taquin(std::string name, int window_size, int grid_size, Joueur& j);
+  Taquin(std::string name, int window_size, int grid_size, Player& j);
   ~Taquin();
 
   void init();
