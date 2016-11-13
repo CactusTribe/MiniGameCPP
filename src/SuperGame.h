@@ -2,7 +2,7 @@
 #define SUPERGAME_H
 
 #include <SFML/Graphics.hpp>
-#include "CaseType.h"
+#include "Piece/PieceType.h"
 #include "Joueur.h"
 #include "JoueurType.h"
 

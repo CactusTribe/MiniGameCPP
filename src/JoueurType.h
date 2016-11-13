@@ -2,7 +2,7 @@
 #define JOUEURTYPE_H
 
 enum class JoueurType {
-	HUMAN, COMPUTER
+  HUMAN, COMPUTER
 };
 
-#endif 
+#endif

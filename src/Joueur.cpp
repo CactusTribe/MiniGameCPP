@@ -10,25 +10,25 @@ Joueur::~Joueur(){
 }
 
 std::string Joueur::getName(){
-	return m_name;
+  return m_name;
 }
 
 JoueurType Joueur::getType(){
-	return m_type;
+  return m_type;
 }
 
 std::ostream& operator<<(std::ostream& out, const Joueur& j){
 
-	out << "# " << j.m_name << " - ";
+  out << "# " << j.m_name << " - ";
 
-	switch(j.m_type){
-		case JoueurType::HUMAN:
-			out << "HUMAN";
-		break;
-		case JoueurType::COMPUTER:
-			out << "COMPUTER";
-		break;
-	}
+  switch(j.m_type){
+    case JoueurType::HUMAN:
+      out << "HUMAN";
+    break;
+    case JoueurType::COMPUTER:
+      out << "COMPUTER";
+    break;
+  }
 
-	return out;
+  return out;
 }
