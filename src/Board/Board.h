@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "Piece/Piece.h"
+#include "../IHM.h"
 
 class Board{
 public:
@@ -13,6 +14,8 @@ public:
   Piece get(int x, int y);
   int getSize();
   bool changePiece(Piece c, int x, int y);
+  void draw(IHM& render);
+
 
 private:
   int m_size = 0;
