@@ -4,19 +4,20 @@
 #include <string>
 #include "Game.h"
 
-class Taquin : public Game{
-public:
-  Taquin(std::string name, int window_size, int grid_size, Player& j);
-  ~Taquin();
+class Taquin : public Game {
 
-  void init();
+public:
+  Taquin(std::string name, int boardSize, Player& player);
+  virtual ~Taquin();
+
+  virtual void draw(IHM& render);
+
+  virtual void action(bool haveEvent, sf::Event e);
 
 private:
-  void human_loop(sf::Event e);
-  void computer_loop();
+  int _blank_X = 0;
+  int _blank_Y = 0;
 
-  int m_blank_X = 0;
-  int m_blank_Y = 0;
 };
 
 #endif

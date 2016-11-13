@@ -1,22 +1,21 @@
 #ifndef JOUEUR_H
 #define JOUEUR_H
 
+#include "PlayerAction.h"
 #include <string>
-#include "PlayerType.h"
+#include <SFML/Graphics.hpp>
+
 
 class Player{
 public:
-  Player(std::string name, PlayerType type);
-  ~Player();
+  Player(std::string name);
+  virtual ~Player();
+  const std::string getName();
 
-  std::string getName();
-  PlayerType getType();
+  virtual PlayerAction choiceAction(bool haveEvent, sf::Event e)= 0;
 
 private:
-  std::string m_name;
-  PlayerType m_type;
+  const std::string _name;
 
-friend std::ostream& operator<<(std::ostream& out, const Player& j);
 };
-
 #endif

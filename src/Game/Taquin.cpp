@@ -5,18 +5,12 @@
 
 using namespace sf;
 
-Taquin::Taquin(std::string name, int window_size, int grid_size, Player& j) : Game(name, window_size, grid_size, j){
+Taquin::Taquin(std::string name, int boardSize, Player& player)
+  : Game(name, boardSize, player)
+{
 
-  srand (time(NULL));
-}
-
-Taquin::~Taquin(){
-}
-
-void Taquin::init(){
-  // Tableau des nombres disponible
   std::vector<int> numbers;
-  int gridsize = m_grille.getSize();
+  int gridsize = _board.getSize();
   for(int i=0; i < (gridsize * gridsize); i++){
     numbers.push_back(i);
   }
@@ -30,85 +24,90 @@ void Taquin::init(){
         numbers.erase(numbers.begin() + (random));
 
         if(choice > 0)
-          m_grille.changePiece(Piece(PieceType::INTEGER, choice), j, i);
+          _board.changePiece(Piece(PieceType::INTEGER, choice), j, i);
         else{
-          m_grille.changePiece(Piece(PieceType::EMPTY, 0), j, i);
-          m_blank_X = j;
-          m_blank_Y = i;
+          _board.changePiece(Piece(PieceType::EMPTY, 0), j, i);
+          _blank_X = j;
+          _blank_Y = i;
         }
 
     }
   }
 }
 
-void Taquin::human_loop(Event e){
-  if(e.type == Event::KeyPressed){
+Taquin::~Taquin(){
+}
 
-    switch(e.key.code){
+void Taquin::action(bool haveEvent, Event e)
+{
+    switch(_player.choiceAction(haveEvent, e) ){
 
-      case Keyboard::Up :
-        if(m_blank_Y < m_grille.getSize()-1){
-          int old_x = m_blank_X;
-          int old_y = m_blank_Y+1;
+      case PlayerAction::Up :
+        if(_blank_Y < _board.getSize()-1){
+          int old_x = _blank_X;
+          int old_y = _blank_Y+1;
 
-          m_grille.changePiece(m_grille.get(old_x, old_y), m_blank_X, m_blank_Y);
-          m_grille.changePiece(Piece(PieceType::EMPTY, 0), old_x, old_y);
-          m_blank_X = old_x;
-          m_blank_Y = old_y;
-
-          update();
+          _board.changePiece(_board.get(old_x, old_y), _blank_X, _blank_Y);
+          _board.changePiece(Piece(PieceType::EMPTY, 0), old_x, old_y);
+          _blank_X = old_x;
+          _blank_Y = old_y;
         }
       break;
 
-      case Keyboard::Down :
-        if(m_blank_Y > 0){
-          int old_x = m_blank_X;
-          int old_y = m_blank_Y-1;
-
-          m_grille.changePiece(m_grille.get(old_x, old_y), m_blank_X, m_blank_Y);
-          m_grille.changePiece(Piece(PieceType::EMPTY, 0), old_x, old_y);
-          m_blank_X = old_x;
-          m_blank_Y = old_y;
-
-          update();
+      case PlayerAction::Down :
+        if(_blank_Y > 0){
+          int old_x = _blank_X;
+          int old_y = _blank_Y-1;
+          _board.changePiece(_board.get(old_x, old_y), _blank_X, _blank_Y);
+          _board.changePiece(Piece(PieceType::EMPTY, 0), old_x, old_y);
+          _blank_X = old_x;
+          _blank_Y = old_y;
         }
       break;
 
-      case Keyboard::Left :
-        if(m_blank_X < m_grille.getSize()-1){
-          int old_x = m_blank_X+1;
-          int old_y = m_blank_Y;
-
-          m_grille.changePiece(m_grille.get(old_x, old_y), m_blank_X, m_blank_Y);
-          m_grille.changePiece(Piece(PieceType::EMPTY, 0), old_x, old_y);
-          m_blank_X = old_x;
-          m_blank_Y = old_y;
-
-          update();
+      case PlayerAction::Left :
+        if(_blank_X < _board.getSize()-1){
+          int old_x = _blank_X+1;
+          int old_y = _blank_Y;
+          _board.changePiece(_board.get(old_x, old_y), _blank_X, _blank_Y);
+          _board.changePiece(Piece(PieceType::EMPTY, 0), old_x, old_y);
+          _blank_X = old_x;
+          _blank_Y = old_y;
         }
       break;
 
-      case Keyboard::Right :
-        if(m_blank_X > 0){
-          int old_x = m_blank_X-1;
-          int old_y = m_blank_Y;
+      case PlayerAction::Right :
+        if(_blank_X > 0){
+          int old_x = _blank_X-1;
+          int old_y = _blank_Y;
 
-          m_grille.changePiece(m_grille.get(old_x, old_y), m_blank_X, m_blank_Y);
-          m_grille.changePiece(Piece(PieceType::EMPTY, 0), old_x, old_y);
-          m_blank_X = old_x;
-          m_blank_Y = old_y;
-
-          update();
+          _board.changePiece(_board.get(old_x, old_y), _blank_X, _blank_Y);
+          _board.changePiece(Piece(PieceType::EMPTY, 0), old_x, old_y);
+          _blank_X = old_x;
+          _blank_Y = old_y;
         }
       break;
 
       default:
       break;
     }
-  }
+  
 }
 
-void Taquin::computer_loop(){
 
+
+void Taquin::draw(IHM& render)
+{
+    // Remplissage de l'écran
+    render.app()->clear(sf::Color(255, 255, 255));
+    int grid_size = _board.getSize();
+    int case_size = render.window_size() / grid_size;
+    // Affichage de la grille
+    for(int i=0; i < grid_size; i++){
+      for(int j=0; j < grid_size; j++){
+        _board.get(j,i).draw(render.app(), case_size, j*case_size, i*case_size);
+      }
+    }
+    // Affichage de la fenêtre à l'écran
+    render.app()->display();
 }
-
