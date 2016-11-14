@@ -56,21 +56,3 @@ void Sokoban::action(bool haveEvent, Event e)
     }
   
 }
-
-
-
-void Sokoban::draw(IHM& render)
-{
-    // Remplissage de l'écran
-    render.app()->clear(sf::Color(255, 255, 255));
-    int grid_size = _board.getSize();
-    int case_size = render.window_size() / grid_size;
-    // Affichage de la grille
-    for(int i=0; i < grid_size; i++){
-      for(int j=0; j < grid_size; j++){
-        _board.get(j,i).draw(render.app(), case_size, j*case_size, i*case_size);
-      }
-    }
-    // Affichage de la fenêtre à l'écran
-    render.app()->display();
-}
