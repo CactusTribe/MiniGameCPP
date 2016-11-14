@@ -18,8 +18,8 @@ class Piece {
   private:
     int _value = 0;
     PieceType _type;
-    sf::Sprite _sprite;
-    
+    sf::Texture _texture;
+    sf::Texture _background;
 
   friend std::ostream& operator<<(std::ostream& out, const Piece& c);
 

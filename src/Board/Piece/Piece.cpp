@@ -3,49 +3,34 @@
 
 Piece::Piece(PieceType type, int value) : _value(value), _type(type){
 
-  sf::Texture texture;
+  _background.loadFromFile("sprites/GroundGravel_Sand.png");
+  _background.setSmooth(true);
 
   switch(_type){
     case PieceType::BOX:
-      texture.loadFromFile("sprites/Crate_Purple.png");
-      texture.setSmooth(true);
-      _sprite.setTexture(texture);
-      _sprite.setScale(sf::Vector2f(0.8f, 0.8f));
+      _texture.loadFromFile("sprites/Crate_Purple.png");
+      _texture.setSmooth(true);
     break;
 
     case PieceType::WALL:
-      texture.loadFromFile("sprites/WallRound_Brown.png");
-      texture.setSmooth(true);
-      _sprite.setTexture(texture);
-      _sprite.setScale(sf::Vector2f(0.8f, 0.8f));
+      _texture.loadFromFile("sprites/WallRound_Brown.png");
+      _texture.setSmooth(true);
     break;
 
     case PieceType::END_POINT:
-      texture.loadFromFile("sprites/EndPoint_Purple.png");
-      texture.setSmooth(true);
-      _sprite.setTexture(texture);
-      _sprite.setScale(sf::Vector2f(0.8f, 0.8f));
+      _texture.loadFromFile("sprites/EndPoint_Purple.png");
+      _texture.setSmooth(true);
     break;
 
     case PieceType::PLAYER_UP:
-      texture.loadFromFile("sprites/Character7.png");
-      texture.setSmooth(true);
-      _sprite.setTexture(texture);
-      _sprite.setScale(sf::Vector2f(0.8f, 0.8f));
+      _texture.loadFromFile("sprites/Character7.png");
+      _texture.setSmooth(true);
     break;
 
     case PieceType::EMPTY:
-      texture.loadFromFile("sprites/GroundGravel_Sand.png");
-      texture.setSmooth(true);
-      _sprite.setTexture(texture);
-      _sprite.setScale(sf::Vector2f(0.8f, 0.8f));
     break;
 
     default:
-      texture.loadFromFile("sprites/GroundGravel_Sand.png");
-      texture.setSmooth(true);
-      _sprite.setTexture(texture);
-      _sprite.setScale(sf::Vector2f(0.8f, 0.8f));
     break;
   }
   
@@ -74,33 +59,50 @@ void Piece::draw(sf::RenderTarget* target, int size, int x, int y){
   sf::RectangleShape rectangle(sf::Vector2f(size, size));
   sf::Text value;
   sf::FloatRect rect;
+
+  // Affichage du background
+  sf::Sprite sprite;
+  sprite.setTexture(_background);
+
+  rect = sprite.getLocalBounds();
+  double ratio_x = size / rect.width;
+  double ratio_y = size / rect.height;
+  sprite.scale(sf::Vector2f(ratio_x, ratio_y));
+  sprite.setPosition(x, y);
+  target->draw(sprite);
   
-  rectangle.setPosition(x, y);
-  rectangle.setFillColor(sf::Color(235, 214, 177));
-  rectangle.setOutlineThickness(2);
-  rectangle.setOutlineColor(sf::Color(130, 113, 84));
+  switch(_type){
+    case PieceType::INTEGER:
 
-  target->draw(rectangle);
+      // Mise en forme du texte
+      value.setFont(font);
+      value.setString(std::to_string(_value));
+      value.setCharacterSize(30);
+      value.setColor(sf::Color(130, 113, 84));
+      value.setStyle(sf::Text::Bold);
 
-  // Mise en forme du texte
-  value.setFont(font);
-  value.setString(std::to_string(_value));
-  value.setCharacterSize(30);
-  value.setColor(sf::Color(130, 113, 84));
-  value.setStyle(sf::Text::Bold);
+      // Placement du texte
+      rect = value.getLocalBounds();
+      value.setOrigin(rect.left + rect.width/2.0f, rect.top + rect.height/2.0f);
+      value.setPosition( x + (size / 2), y + (size / 2));
 
-  // Placement du texte
-  rect = value.getLocalBounds();
-  value.setOrigin(rect.left + rect.width/2.0f, rect.top + rect.height/2.0f);
-  value.setPosition( x + (size / 2), y + (size / 2));
+      target->draw(value);
+    break;
 
-  target->draw(value);
+    default:
+      // Affichage du sprite
+      sf::Sprite sprite;
+      sprite.setTexture(_texture);
 
+      rect = sprite.getLocalBounds();
+      double ratio_x = size / rect.width;
+      double ratio_y = size / rect.height;
+      sprite.scale(sf::Vector2f(ratio_x, ratio_y));
+      sprite.setPosition(x, y);
 
-  // Affichage du sprite
-  _sprite.setPosition(x, y);
-  target->draw(_sprite);
-
+      target->draw(sprite);
+    break;
+  }
 }
 
 
