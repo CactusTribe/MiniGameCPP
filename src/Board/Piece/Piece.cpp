@@ -1,8 +1,54 @@
 #include <iostream>
 #include "Piece.h"
 
-Piece::Piece(PieceType type, int value) : m_value(value), m_type(type){
+Piece::Piece(PieceType type, int value) : _value(value), _type(type){
 
+  sf::Texture texture;
+
+  switch(_type){
+    case PieceType::BOX:
+      texture.loadFromFile("sprites/Crate_Purple.png");
+      texture.setSmooth(true);
+      _sprite.setTexture(texture);
+      _sprite.setScale(sf::Vector2f(0.8f, 0.8f));
+    break;
+
+    case PieceType::WALL:
+      texture.loadFromFile("sprites/WallRound_Brown.png");
+      texture.setSmooth(true);
+      _sprite.setTexture(texture);
+      _sprite.setScale(sf::Vector2f(0.8f, 0.8f));
+    break;
+
+    case PieceType::END_POINT:
+      texture.loadFromFile("sprites/EndPoint_Purple.png");
+      texture.setSmooth(true);
+      _sprite.setTexture(texture);
+      _sprite.setScale(sf::Vector2f(0.8f, 0.8f));
+    break;
+
+    case PieceType::PLAYER_UP:
+      texture.loadFromFile("sprites/Character7.png");
+      texture.setSmooth(true);
+      _sprite.setTexture(texture);
+      _sprite.setScale(sf::Vector2f(0.8f, 0.8f));
+    break;
+
+    case PieceType::EMPTY:
+      texture.loadFromFile("sprites/GroundGravel_Sand.png");
+      texture.setSmooth(true);
+      _sprite.setTexture(texture);
+      _sprite.setScale(sf::Vector2f(0.8f, 0.8f));
+    break;
+
+    default:
+      texture.loadFromFile("sprites/GroundGravel_Sand.png");
+      texture.setSmooth(true);
+      _sprite.setTexture(texture);
+      _sprite.setScale(sf::Vector2f(0.8f, 0.8f));
+    break;
+  }
+  
 }
 
 Piece::~Piece(){
@@ -10,15 +56,15 @@ Piece::~Piece(){
 }
 
 PieceType Piece::getType(){
-  return m_type;
+  return _type;
 }
 
 int Piece::getValue(){
-  return m_value;
+  return _value;
 }
 
 void Piece::setValue(int i){
-  m_value = i;
+  _value = i;
 }
 
 void Piece::draw(sf::RenderTarget* target, int size, int x, int y){
@@ -26,6 +72,9 @@ void Piece::draw(sf::RenderTarget* target, int size, int x, int y){
   font.loadFromFile("fonts/verdana.ttf");
 
   sf::RectangleShape rectangle(sf::Vector2f(size, size));
+  sf::Text value;
+  sf::FloatRect rect;
+  
   rectangle.setPosition(x, y);
   rectangle.setFillColor(sf::Color(235, 214, 177));
   rectangle.setOutlineThickness(2);
@@ -33,37 +82,35 @@ void Piece::draw(sf::RenderTarget* target, int size, int x, int y){
 
   target->draw(rectangle);
 
-  switch(m_type){
+  // Mise en forme du texte
+  value.setFont(font);
+  value.setString(std::to_string(_value));
+  value.setCharacterSize(30);
+  value.setColor(sf::Color(130, 113, 84));
+  value.setStyle(sf::Text::Bold);
 
-    case PieceType::INTEGER:
+  // Placement du texte
+  rect = value.getLocalBounds();
+  value.setOrigin(rect.left + rect.width/2.0f, rect.top + rect.height/2.0f);
+  value.setPosition( x + (size / 2), y + (size / 2));
 
-      // Mise en forme du texte
-      sf::Text value;
-      value.setFont(font);
-      value.setString(std::to_string(m_value));
-      value.setCharacterSize(30);
-      value.setColor(sf::Color(130, 113, 84));
-      value.setStyle(sf::Text::Bold);
+  target->draw(value);
 
-      // Placement du texte
-      sf::FloatRect rect = value.getLocalBounds();
-      value.setOrigin(rect.left + rect.width/2.0f, rect.top + rect.height/2.0f);
-      value.setPosition( x + (size / 2), y + (size / 2));
 
-      target->draw(value);
-    break;
+  // Affichage du sprite
+  _sprite.setPosition(x, y);
+  target->draw(_sprite);
 
-  }
 }
 
 
 std::ostream& operator<<(std::ostream& out, const Piece& c){
-  switch(c.m_type){
+  switch(c._type){
     case PieceType::EMPTY:
       out << " ";
     break;
     case PieceType::INTEGER:
-      out << c.m_value;
+      out << c._value;
     break;
     case PieceType::MULT_2:
       out << "x2";
@@ -76,6 +123,16 @@ std::ostream& operator<<(std::ostream& out, const Piece& c){
     break;
     case PieceType::WALL:
       out << "X";
+    break;
+    case PieceType::PLAYER_UP:
+    break;
+    case PieceType::PLAYER_DOWN:
+    break;
+    case PieceType::PLAYER_LEFT:
+    break;
+    case PieceType::PLAYER_RIGHT:
+    break;
+    case PieceType::END_POINT:
     break;
   }
   return out;

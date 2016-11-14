@@ -16,8 +16,10 @@ class Piece {
     void draw(sf::RenderTarget* target, int size, int x, int y);
 
   private:
-    int m_value = 0;
-    PieceType m_type;
+    int _value = 0;
+    PieceType _type;
+    sf::Sprite _sprite;
+    
 
   friend std::ostream& operator<<(std::ostream& out, const Piece& c);
 
