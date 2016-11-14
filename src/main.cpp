@@ -16,7 +16,7 @@ int main(int argc, char** argv)
   //Taquin game("Taquin", 4, j_robot);
   Sokoban game("Sokoban", 8, j_human);
 
-  IHM render(400, "Projet :: Langages a objets avances M1 :: Joaquim Lefranc et Jerome Skoda");
+  IHM render(600, "Projet :: Langages a objets avances M1 :: Joaquim Lefranc et Jerome Skoda");
 
   Event event;
   while(render.app()->isOpen())

@@ -70,6 +70,12 @@ void Piece::draw(sf::RenderTarget* target, int size, int x, int y){
   sprite.scale(sf::Vector2f(ratio_x, ratio_y));
   sprite.setPosition(x, y);
   target->draw(sprite);
+
+  rectangle.setPosition(x, y);
+  rectangle.setFillColor(sf::Color(255, 255, 255, 0));
+  rectangle.setOutlineThickness(2);
+  rectangle.setOutlineColor(sf::Color(130, 113, 84));
+  target->draw(rectangle);
   
   switch(_type){
     case PieceType::INTEGER:

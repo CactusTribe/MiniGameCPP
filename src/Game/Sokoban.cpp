@@ -23,7 +23,8 @@ Sokoban::Sokoban(std::string name, int boardSize, Player& player)
         _board.changePiece(Piece(PieceType::BOX, 0), j, i);
       else if(random == 3)
         _board.changePiece(Piece(PieceType::END_POINT, 0), j, i);
-
+      else if(random == 4)
+        _board.changePiece(Piece(PieceType::PLAYER_UP, 0), j, i);
     }
   }
 }
