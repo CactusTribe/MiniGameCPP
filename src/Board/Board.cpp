@@ -55,3 +55,14 @@ std::ostream& operator<<(std::ostream& out, const Board& g){
 
   return out;
 }
+
+void Board::draw(IHM& render)
+{
+  int case_size = render.window_size() / getSize();
+  // Affichage de la grille
+  for(int i=0; i < getSize(); i++){
+    for(int j=0; j < getSize(); j++){
+      get(j,i).draw(render.app(), case_size, j*case_size, i*case_size);
+    }
+  }
+}

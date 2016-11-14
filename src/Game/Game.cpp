@@ -14,3 +14,12 @@ Game::~Game()
 {
 }
 
+void Game::draw(IHM& render)
+{
+    // Remplissage de l'écran
+    render.app()->clear(sf::Color(255, 255, 255));
+    // Affiche la grille
+    _board.draw(render);
+    // Affichage de la fenêtre à l'écran
+    render.app()->display();
+}
