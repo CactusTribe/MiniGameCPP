@@ -10,6 +10,8 @@ class SokobanBoxPiece : public GraphicsPiece {
 
     virtual ~SokobanBoxPiece();
 
+    bool isGood() const;
+
     virtual bool canMovedBy(const Board* board, Piece* source, Pos2D src) const;
 
     virtual bool onMovedBy(Board* board, Piece* source, Pos2D src);

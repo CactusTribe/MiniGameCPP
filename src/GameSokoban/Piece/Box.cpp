@@ -1,12 +1,20 @@
 #include "Box.h"
 
 SokobanBoxPiece::SokobanBoxPiece()
-  : GraphicsPiece(PieceType::Box ,"sprites/GroundGravel_Sand.png", "sprites/Crate_Purple.png")
+  : GraphicsPiece(PieceType::Box ,"sprites/GroundGravel_Sand.png", "sprites/CratePurpleBad.png")
 {
 }
 
 SokobanBoxPiece::~SokobanBoxPiece()
 {
+}
+
+bool SokobanBoxPiece::isGood() const
+{
+  if(_store)
+    if(_store->type() == PieceType::EndPoint)
+      return true;
+  return false;
 }
 
 bool SokobanBoxPiece::canMovedBy(const Board* board, Piece* source, Pos2D src) const
@@ -36,6 +44,12 @@ bool SokobanBoxPiece::onMovedTo(Board* board, Piece* target, Pos2D dst)
 {
   board->push(_store, pos());
   _store= board->get(dst);
+
+  if(isGood())
+    _texture.loadFromFile("sprites/CratePurpleGood.png");
+  else
+    _texture.loadFromFile("sprites/CratePurpleBad.png");
+
   return false;
 }
 
