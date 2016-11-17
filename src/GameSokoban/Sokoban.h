@@ -1,8 +1,8 @@
 #ifndef SOKOBAN_H
 #define SOKOBAN_H
 
-#include <string>
-#include "Game.h"
+#include "../Shared/Game.h"
+#include <vector>
 
 class Sokoban : public Game {
 
@@ -13,9 +13,8 @@ public:
   virtual void action(bool haveEvent, sf::Event e);
 
 private:
-  int _player_x = 0;
-  int _player_y = 0;
-
+  Piece* _piecePlayer;
+  std::vector<Piece*> _pieceBox;
 };
 
 #endif

@@ -3,10 +3,10 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
-#include "../Player/Player.h"
-#include "../Board/Board.h"
-#include "../IHM.h"
+#include "../Shared/Player/Player.h"
+#include "../Shared/Board/Board.h"
 
+class IHM;
 
 class Game{
 
@@ -16,9 +16,9 @@ public:
 
   const std::string name() const;
 
-  virtual void draw(IHM& render);
+  virtual void action(bool hasEvent, sf::Event e)=0;
 
-  virtual void action(bool haveEvent, sf::Event e)=0;
+  void draw(IHM& render);
 
 protected:
 

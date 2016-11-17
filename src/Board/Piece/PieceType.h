@@ -1,8 +1,0 @@
-#ifndef PIECETYPE_H
-#define PIECETYPE_H
-
-enum class PieceType {
-  EMPTY, INTEGER, MULT_2, DIV_2, BOX, END_POINT, WALL, PLAYER_UP, PLAYER_DOWN, PLAYER_LEFT, PLAYER_RIGHT 
-};
-
-#endif

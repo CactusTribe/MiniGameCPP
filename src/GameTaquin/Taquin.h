@@ -2,7 +2,7 @@
 #define TAQUIN_H
 
 #include <string>
-#include "Game.h"
+#include "../Shared/Game.h"
 
 class Taquin : public Game {
 
