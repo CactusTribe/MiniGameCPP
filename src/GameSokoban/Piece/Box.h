@@ -12,8 +12,12 @@ class SokobanBoxPiece : public GraphicsPiece {
 
     virtual bool canMovedBy(const Board* board, Piece* source, Pos2D src) const;
 
+    virtual bool onMovedBy(Board* board, Piece* source, Pos2D src);
+
+    virtual bool onMovedTo(Board* board, Piece* target, Pos2D dst);
+
     private:
-      Piece* previousPiece;
+      Piece* _store;
 };
 
 #endif
