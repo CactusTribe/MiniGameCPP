@@ -7,7 +7,7 @@
 class GraphicsPiece : public Piece {
 
   public:
-    GraphicsPiece(PieceType type, const char* textureFile, const char* backgroundFile);
+    GraphicsPiece(int type, const char* textureFile, const char* backgroundFile);
     virtual ~GraphicsPiece();
    
     virtual void draw(sf::RenderTarget* target) const;

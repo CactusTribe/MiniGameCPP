@@ -3,17 +3,16 @@
 
 #include <SFML/Graphics.hpp>
 #include "../Board.h"
-#include "PieceType.h"
 #include "../Pos2D.h"
 
 class Piece {
 
   public:
-    Piece(PieceType type);
+    Piece(int type);
 
     ~Piece();
 
-    PieceType type() const;
+    int type() const;
     Pos2D pos() const;
     virtual void draw(sf::RenderTarget* target) const;
     virtual bool canMovedBy(const Board* board, Piece* source, Pos2D src) const;
@@ -27,7 +26,7 @@ class Piece {
     void setPos(Pos2D pos);
 
   protected:
-    const PieceType _type;
+    const int _type;
     int _size = 0;
     Pos2D _pos;
 

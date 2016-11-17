@@ -1,7 +1,8 @@
 #include "Player.h"
+#include "../PieceType.h"
 
 SokobanPlayerPiece::SokobanPlayerPiece()
-  : GraphicsPiece(PieceType::Player,"sprites/GroundGravel_Sand.png", "sprites/PlayerDown.png")
+  : GraphicsPiece(PieceType::PLAYER, "sprites/GroundGravel_Sand.png", "sprites/PlayerDown.png")
 {
 }
 

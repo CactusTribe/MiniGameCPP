@@ -1,7 +1,7 @@
 #include "GraphicsPiece.h"
 #include <cstring>
 
-GraphicsPiece::GraphicsPiece(PieceType type, const char* textureFile, const char* backgroundFile)
+GraphicsPiece::GraphicsPiece(int type, const char* textureFile, const char* backgroundFile)
   : Piece(type)
 {
 

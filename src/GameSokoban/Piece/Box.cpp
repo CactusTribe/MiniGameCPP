@@ -1,7 +1,8 @@
 #include "Box.h"
+#include "../PieceType.h"
 
 SokobanBoxPiece::SokobanBoxPiece()
-  : GraphicsPiece(PieceType::Box ,"sprites/GroundGravel_Sand.png", "sprites/CratePurpleBad.png")
+  : GraphicsPiece(PieceType::BOX ,"sprites/GroundGravel_Sand.png", "sprites/CratePurpleBad.png")
 {
 }
 
@@ -12,7 +13,7 @@ SokobanBoxPiece::~SokobanBoxPiece()
 bool SokobanBoxPiece::isGood() const
 {
   if(_store)
-    if(_store->type() == PieceType::EndPoint)
+    if(_store->type() == PieceType::END_POINT)
       return true;
   return false;
 }
@@ -22,7 +23,7 @@ bool SokobanBoxPiece::canMovedBy(const Board* board, Piece* source, Pos2D src) c
   if(!source)
     return false;
 
-  if(source->type() != PieceType::Player)
+  if(source->type() != PieceType::PLAYER)
     return false;
 
   Pos2D dir= ( src - pos() ) * -1;

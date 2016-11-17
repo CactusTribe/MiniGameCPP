@@ -1,7 +1,7 @@
 #include "Piece.h"
 #include "../Pos2D.h"
 
-Piece::Piece(PieceType type)
+Piece::Piece(int type)
   : _type(type), _pos(-1,-1)
 {
 }
@@ -10,7 +10,7 @@ Piece::~Piece()
 {
 }
 
-PieceType Piece::type() const
+int Piece::type() const
 {
   return _type;
 }
@@ -31,7 +31,8 @@ void Piece::setPos(Pos2D pos)
 }
 
 void Piece::draw(sf::RenderTarget* target) const
-{;}
+{
+}
 
 bool Piece::canMovedBy(const Board* board, Piece* source, Pos2D src) const
 {
