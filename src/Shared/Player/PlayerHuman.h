@@ -9,6 +9,7 @@ public:
 
   PlayerHuman(const std::string name);
   virtual ~PlayerHuman();
+  
   virtual PlayerAction choiceAction(bool haveEvent, sf::Event e);
 };
 #endif

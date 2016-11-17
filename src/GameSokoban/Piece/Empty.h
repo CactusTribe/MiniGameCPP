@@ -7,7 +7,6 @@ class SokobanEmptyPiece : public GraphicsPiece {
 
   public:
     SokobanEmptyPiece();
-
     virtual ~SokobanEmptyPiece();
 
 };

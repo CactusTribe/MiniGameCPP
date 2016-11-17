@@ -10,13 +10,14 @@ IHM::IHM(int window_size, const std::string& title)
   _app = new RenderWindow(VideoMode(_window_size, _window_size, 32), title);
 }
 
-IHM::~IHM(){
+IHM::~IHM() {
   _app->close();
   delete _app;
 }
 
 sf::RenderWindow* IHM::app() {
-  return _app;}
+  return _app;
+}
 
 int IHM::window_size() {
   return _window_size;

@@ -1,5 +1,5 @@
-#ifndef JEUX_H
-#define JEUX_H
+#ifndef GAME_H
+#define GAME_H
 
 #include <SFML/Graphics.hpp>
 #include <string>
@@ -11,13 +11,12 @@ class IHM;
 class Game{
 
 public:
+
   Game(std::string name, int gridSize, Player& player);
   virtual ~Game();
 
   const std::string name() const;
-
   virtual void action(bool hasEvent, sf::Event e)=0;
-
   void draw(IHM& render);
 
 protected:

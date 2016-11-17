@@ -4,6 +4,7 @@
 GraphicsPiece::GraphicsPiece(PieceType type, const char* textureFile, const char* backgroundFile)
   : Piece(type)
 {
+
   if(strlen(textureFile))
   {
     _background.loadFromFile(textureFile);
@@ -21,20 +22,17 @@ GraphicsPiece::~GraphicsPiece()
 {
 }
 
+
 void GraphicsPiece::draw(sf::RenderTarget* target) const
 {
-  if(!hasBoard())
-    return;
 
-  int size_x= target->getSize().x / board()->size();
-  int size_y= target->getSize().y / board()->size();
-  int pos_x= size_x * pos().x();
-  int pos_y= size_y * pos().y();
+  int pos_x= _size * pos().x();
+  int pos_y= _size * pos().y();
 
   sf::Font font;
   font.loadFromFile("fonts/verdana.ttf");
 
-  sf::RectangleShape rectangle(sf::Vector2f(size_x, size_y));
+  sf::RectangleShape rectangle(sf::Vector2f(_size, _size));
   sf::Text value;
   sf::FloatRect rect;
 
@@ -42,8 +40,8 @@ void GraphicsPiece::draw(sf::RenderTarget* target) const
   sf::Sprite sBackground;
   sBackground.setTexture(_background);
   rect = sBackground.getLocalBounds();
-  double ratio_x = size_x / rect.width;
-  double ratio_y = size_y / rect.height;
+  double ratio_x = _size / rect.width;
+  double ratio_y = _size / rect.height;
   sBackground.scale(sf::Vector2f(ratio_x, ratio_y));
   sBackground.setPosition(pos_x, pos_y);;
   target->draw(sBackground);

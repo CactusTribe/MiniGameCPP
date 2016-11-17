@@ -15,29 +15,19 @@ PieceType Piece::type() const
   return _type;
 }
 
-bool Piece::hasBoard() const
-{
-  return _board;
-}
-
-Board* Piece::board() const
-{
-  return _board;
-}
-
 Pos2D Piece::pos() const
 {
   return _pos;
 }
 
-void Piece::pos(Pos2D pos)
+void Piece::setSize(int size)
 {
-  _pos= pos;
+  _size = size;
 }
 
-void Piece::board(Board* board)
+void Piece::setPos(Pos2D pos)
 {
-  _board= board;
+  _pos= pos;
 }
 
 void Piece::draw(sf::RenderTarget* target) const

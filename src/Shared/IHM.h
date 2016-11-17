@@ -11,9 +11,9 @@ public:
 
   IHM(int window_size, const std::string& title);
   virtual ~IHM();
+
   sf::RenderWindow* app();
   int window_size();
-
   void drawGame(const Game& game);
 
 private:

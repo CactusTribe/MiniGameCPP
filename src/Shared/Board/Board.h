@@ -1,5 +1,5 @@
-#ifndef GRILLE_H
-#define GRILLE_H
+#ifndef BOARD_H
+#define BOARD_H
 
 #include "Pos2D.h"
 

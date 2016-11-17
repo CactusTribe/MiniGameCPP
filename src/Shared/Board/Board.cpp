@@ -59,8 +59,7 @@ void Board::push(Piece* piece, const Pos2D pos)
 
   if(piece)
   {
-    piece->board(this);
-    piece->pos(pos);
+    piece->setPos(pos);
   }
 }
 
@@ -68,9 +67,6 @@ void Board::pull(Pos2D pos)
 {
   if(!hasPos(pos))
     return;
-
-  if(has(pos))
-    get(pos)->board(nullptr);
 
   _matrice[pos.x()][pos.y()] = nullptr;
 }

@@ -8,8 +8,9 @@ class PlayerRobot : public Player {
 public:
 
   PlayerRobot(const std::string name);
+  virtual ~PlayerRobot();
 
   virtual PlayerAction choiceAction(bool haveEvent, sf::Event e);
-  virtual ~PlayerRobot();
+  
 };
 #endif
