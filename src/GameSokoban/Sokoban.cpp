@@ -3,6 +3,11 @@
 #include <vector>
 #include "Sokoban.h"
 #include "Piece/Empty.h"
+#include "Piece/Wall.h"
+#include "Piece/Player.h"
+#include "Piece/Box.h"
+#include "Piece/EndPoint.h"
+
 using namespace sf;
 
 Sokoban::Sokoban(std::string name, int boardSize, Player& player)
