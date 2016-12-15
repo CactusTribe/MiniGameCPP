@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <vector>
 #include "Taquin.h"
+#include "../Shared/Board/Pos2D.h"
 
 using namespace sf;
 
@@ -23,14 +24,14 @@ Taquin::Taquin(std::string name, int boardSize, Player& player)
         int choice = numbers[random];
         numbers.erase(numbers.begin() + (random));
 
-     /*   if(choice > 0)
-          _board.changePiece(Piece(PieceType::INTEGER, choice), j, i);
+        Pos2D pos= Pos2D(i, j);
+
+        if(choice > 0)
+          _board.moveAbs( new TaquinNumberPiece(choice), pos);
         else{
-          _board.changePiece(Piece(PieceType::EMPTY, 0), j, i);
-          _blank_X = j;
-          _blank_Y = i;
+          _cursorPos= pos;
+          _board.moveAbs( new TaquinEmptyPiece(), pos);
         }
-*/
     }
   }
 }
@@ -38,59 +39,45 @@ Taquin::Taquin(std::string name, int boardSize, Player& player)
 Taquin::~Taquin(){
 }
 
-void Taquin::action(bool haveEvent, Event e)
+static void _switchPiece(Board* b, Pos2D posA, Pos2D posB) {
+  Piece* p= b->get(posA);
+  b->moveAbs(b->get(posB), posA);
+  b->moveAbs(p, posB);
+}
+
+static bool _canSwitchPiece(Board* b, Pos2D posA, Pos2D posB) {
+  return posA.x() >= 0 && posA.x() < b->size()
+      && posA.y() >= 0 && posA.y() < b->size()
+      && posB.x() >= 0 && posB.x() < b->size()
+      && posB.y() >= 0 && posB.y() < b->size();
+}
+
+void Taquin::action(bool hasEvent, Event e)
 {
-/*    switch(_player.choiceAction(haveEvent, e) ){
+    Pos2D dst= _cursorPos;
 
-      case PlayerAction::Up :
-        if(_blank_Y < _board.size()-1){
-          int old_x = _blank_X;
-          int old_y = _blank_Y+1;
-
-          _board.changePiece(_board.get(old_x, old_y), _blank_X, _blank_Y);
-          _board.changePiece(Piece(PieceType::EMPTY, 0), old_x, old_y);
-          _blank_X = old_x;
-          _blank_Y = old_y;
-        }
+    switch(_player.choiceAction(hasEvent, e) ){
+      case PlayerAction::Up:
+        dst= _cursorPos + Direction::one_up;
       break;
-
-      case PlayerAction::Down :
-        if(_blank_Y > 0){
-          int old_x = _blank_X;
-          int old_y = _blank_Y-1;
-          _board.changePiece(_board.get(old_x, old_y), _blank_X, _blank_Y);
-          _board.changePiece(Piece(PieceType::EMPTY, 0), old_x, old_y);
-          _blank_X = old_x;
-          _blank_Y = old_y;
-        }
+      case PlayerAction::Down:
+        dst= _cursorPos + Direction::one_down;
       break;
-
-      case PlayerAction::Left :
-        if(_blank_X < _board.size()-1){
-          int old_x = _blank_X+1;
-          int old_y = _blank_Y;
-          _board.changePiece(_board.get(old_x, old_y), _blank_X, _blank_Y);
-          _board.changePiece(Piece(PieceType::EMPTY, 0), old_x, old_y);
-          _blank_X = old_x;
-          _blank_Y = old_y;
-        }
+      case PlayerAction::Left:
+        dst= _cursorPos + Direction::one_left;
       break;
-
-      case PlayerAction::Right :
-        if(_blank_X > 0){
-          int old_x = _blank_X-1;
-          int old_y = _blank_Y;
-
-          _board.changePiece(_board.get(old_x, old_y), _blank_X, _blank_Y);
-          _board.changePiece(Piece(PieceType::EMPTY, 0), old_x, old_y);
-          _blank_X = old_x;
-          _blank_Y = old_y;
-        }
+      case PlayerAction::Right:
+        dst= _cursorPos + Direction::one_right;
       break;
-
       default:
       break;
-    } */
+    }
+
+  if(_canSwitchPiece(&_board, dst, _cursorPos))
+  {
+    _switchPiece(&_board, dst, _cursorPos);
+    _cursorPos= dst;
+  }
 }
 
 

@@ -7,14 +7,14 @@ GraphicsPiece::GraphicsPiece(int type, const char* textureFile, const char* back
 
   if(strlen(textureFile))
   {
-    _background.loadFromFile(textureFile);
-    _background.setSmooth(true);
+    _texture.loadFromFile(textureFile);
+    _texture.setSmooth(true);
   }
 
   if(strlen(backgroundFile))
   {
-    _texture.loadFromFile(backgroundFile);
-    _texture.setSmooth(true);
+    _background.loadFromFile(backgroundFile);
+    _background.setSmooth(true);
   }
 }
 

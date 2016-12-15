@@ -2,7 +2,7 @@
 #include "../PieceType.h"
 
 SokobanWallPiece::SokobanWallPiece()
-  : GraphicsPiece(PieceType::WALL ,"sprites/GroundGravel_Sand.png", "sprites/WallRound_Brown.png")
+  : GraphicsPiece(PieceType::WALL , "sprites/WallRound_Brown.png", "sprites/GroundGravel_Sand.png")
 {
 }
 

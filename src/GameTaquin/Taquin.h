@@ -3,6 +3,9 @@
 
 #include <string>
 #include "../Shared/Game.h"
+#include "Piece/Empty.h"
+#include "Piece/Number.h"
+#include "../Shared/Board/Pos2D.h"
 
 class Taquin : public Game {
 
@@ -13,9 +16,7 @@ public:
   virtual void action(bool haveEvent, sf::Event e);
 
 private:
-  int _blank_X = 0;
-  int _blank_Y = 0;
-
+  Pos2D _cursorPos=Pos2D(0,0);
 };
 
 #endif

@@ -2,7 +2,7 @@
 #include "../PieceType.h"
 
 SokobanEmptyPiece::SokobanEmptyPiece()
-  : GraphicsPiece(PieceType::EMPTY ,"sprites/GroundGravel_Sand.png", "")
+  : GraphicsPiece(PieceType::EMPTY, "", "sprites/GroundGravel_Sand.png")
 {
 }
 

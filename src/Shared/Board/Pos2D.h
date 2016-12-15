@@ -4,7 +4,7 @@
 class Pos2D {
 
   public:
-    Pos2D(const int x, const int y);
+    Pos2D(int x, int y);
     virtual ~Pos2D();
 
     int x() const;

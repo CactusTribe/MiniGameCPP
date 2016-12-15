@@ -1,6 +1,6 @@
 #include "Pos2D.h"
 
-Pos2D::Pos2D(const int x, const int y)
+Pos2D::Pos2D(int x, int y)
   : _x(x) , _y(y)
 {
 }
