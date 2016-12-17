@@ -19,7 +19,7 @@ StringPiece::~StringPiece()
 
 StringPiece& StringPiece::text(std::string text)
 {
-  text = text;
+  _text = text;
   return *this;
 }
 

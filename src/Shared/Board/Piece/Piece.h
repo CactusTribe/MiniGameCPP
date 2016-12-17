@@ -10,7 +10,7 @@ class Piece {
   public:
     Piece(int type);
 
-    ~Piece();
+    virtual ~Piece();
 
     int type() const;
     Pos2D pos() const;
