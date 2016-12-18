@@ -5,6 +5,8 @@
 #include "../Shared/Game.h"
 #include "../Shared/Board/Pos2D.h"
 
+class Piece2048;
+
 class Game2048 : public Game {
 
 public:
@@ -13,6 +15,7 @@ public:
 
   virtual void action(bool haveEvent, sf::Event e);
 
+  virtual Piece2048* pieceRandomDrawing();
 };
 
 #endif

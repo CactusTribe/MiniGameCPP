@@ -7,6 +7,18 @@ NumberPiece2048::NumberPiece2048(int factor)
 : Piece2048( Piece2048Type::NUMBER, std::to_string(factor) ), _factor(factor)
 {
   _value= _factor;
+  switch(_factor)
+  {
+    case 2:
+      Piece2048::StringPiece::_background.loadFromFile("sprites/Mult2.png");
+      break;
+    case 3:
+      Piece2048::StringPiece::_background.loadFromFile("sprites/Mult3.png");
+      break;
+    case 4:
+      Piece2048::StringPiece::_background.loadFromFile("sprites/Mult4.png");
+      break;
+  }
 }
 
 NumberPiece2048::~NumberPiece2048()

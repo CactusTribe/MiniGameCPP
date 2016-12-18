@@ -9,7 +9,7 @@
 
 using namespace sf;
 
-static std::vector<Pos2D> _getEmptyPiece(const Board* board)
+static std::vector<Pos2D> _getEmptyPieceList(const Board* board)
 {
   std::vector<Pos2D> listPos;
   for(int x=0; x< board->size(); x++)
@@ -29,16 +29,10 @@ static std::vector<Pos2D> _getEmptyPiece(const Board* board)
   return listPos;
 }
 
-static bool _addRandomPiece(Board* board)
+static void _addRandomPiece(Board* board, std::vector<Pos2D> list ,Piece* piece)
 {
-  std::vector<Pos2D> list= _getEmptyPiece(board);
-
-  if(list.size() == 0)
-    return false;
-
   int random= rand() % list.size();
-  board->push(new NumberPiece2048(2), list[random]);
-  return true;
+  board->push(piece, list[random]);
 }
 
 Game2048::Game2048(std::string name, int boardSize, Player& player)
@@ -50,10 +44,18 @@ Game2048::Game2048(std::string name, int boardSize, Player& player)
       _board.moveAbs( new Empty2048Piece(), Pos2D(i, j));
     }
   }
-  _addRandomPiece(&_board);
+
+  std::vector<Pos2D> list= _getEmptyPieceList(&_board);
+  if(list.size() > 0)
+    _addRandomPiece(&_board, list, pieceRandomDrawing());
 }
 
 Game2048::~Game2048(){
+}
+
+Piece2048* Game2048::pieceRandomDrawing()
+{
+  return new NumberPiece2048(2);
 }
 
 void Game2048::action(bool hasEvent, Event e)
@@ -112,7 +114,10 @@ void Game2048::action(bool hasEvent, Event e)
       }
     }
 
-  if(!_addRandomPiece(&_board))
+  std::vector<Pos2D> list= _getEmptyPieceList(&_board);
+  if(list.size() > 0)
+    _addRandomPiece(&_board, list, pieceRandomDrawing());
+  else
   {
     //you lose
   }
