@@ -25,7 +25,8 @@ int main(int argc, char** argv)
     PlayerRobot j_robot("Jean le Robot");
     //Taquin game("Taquin", 4, j_human);
     //Sokoban game("Sokoban", 8, j_human);
-    Game2048Variante3 game("2048", 4, j_human);
+    Game2048Variante2 game("2048", 4, j_human);
+
 
     IHM render(600, "Projet :: Langages a objets avances M1 :: Joaquim Lefranc et Jerome Skoda");
 

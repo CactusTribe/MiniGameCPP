@@ -3,10 +3,15 @@
 #include "Piece2048Type.h"
 #include "Empty.h"
 #include "Destroy.h"
-#include <stdio.h>
+#include "Factor.h"
 
-NumberPiece2048::NumberPiece2048(int factor)
-: Piece2048( Piece2048Type::NUMBER, std::to_string(factor)), _factor(abs(factor))
+#include <stdio.h>
+#include <iomanip>
+#include <sstream>
+
+
+NumberPiece2048::NumberPiece2048(float factor)
+ : Piece2048( Piece2048Type::NUMBER, std::to_string(factor)), _factor(abs(factor))
 {
   _value= abs(_factor);
   _signed= factor < 0;
@@ -22,13 +27,14 @@ NumberPiece2048::NumberPiece2048(int factor)
       Piece2048::StringPiece::_background.loadFromFile("sprites/Mult4.png");
       break;
   }
+  updateText();
 }
 
 NumberPiece2048::~NumberPiece2048()
 {
 }
 
-int NumberPiece2048::value() const
+float NumberPiece2048::value() const
 {
   return _value;
 }
@@ -43,10 +49,33 @@ bool NumberPiece2048::isSigned() const
   return _signed;
 }
 
+NumberPiece2048& NumberPiece2048::updateText()
+{
+  std::ostringstream out;
+  out << (isSigned()?"-":"") << std::setprecision(3) << _value;
+
+  text(out.str());
+  return *this;
+}
+
 NumberPiece2048& NumberPiece2048::increase()
 {
   _value = _value * _factor;
-  text( (isSigned()?"-":"") +  std::to_string(_value) );
+  updateText();
+  return *this;
+}
+
+NumberPiece2048& NumberPiece2048::applyMult(int factor)
+{
+  _value *= factor;
+  updateText();
+  return *this;
+}
+
+NumberPiece2048& NumberPiece2048::applyDivide(int factor)
+{
+  _value /= factor;
+  updateText();
   return *this;
 }
 
@@ -62,11 +91,12 @@ bool NumberPiece2048::canMovedBy(const Board* board, Piece* source, Pos2D src) c
   }
   else if(source->type() == Piece2048Type::DESTROY)
   {
-    Destroy2048Piece* destroy= dynamic_cast<Destroy2048Piece*>(source);
-    destroy->destroyRequest();
     return true;
   }
-
+  else if(source->type() == Piece2048Type::FACTOR)
+  {
+    return true;
+  }
   return false;
 }
 
@@ -80,6 +110,21 @@ bool NumberPiece2048::onMovedBy(Board* board, Piece* source, Pos2D src)
     else
       p->increase().merge(true);
     delete this;
+  }
+  else if(source->type() == Piece2048Type::DESTROY)
+  {
+    Destroy2048Piece* destroy= dynamic_cast<Destroy2048Piece*>(source);
+    destroy->destroyRequest();
+  }
+  else if(source->type() == Piece2048Type::FACTOR)
+  {
+    Factor2048Piece* p= dynamic_cast<Factor2048Piece*>(source);
+    if(p->divide())
+      applyDivide(p->factor());
+    else
+      applyMult(p->factor());
+    merge(true);
+    p->destroyRequest();
   }
   return false;
 }

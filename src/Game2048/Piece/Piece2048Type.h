@@ -4,7 +4,8 @@
 enum Piece2048Type {
   EMPTY,
   NUMBER,
-  DESTROY
+  DESTROY,
+  FACTOR
 };
 
 #endif
