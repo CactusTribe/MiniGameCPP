@@ -2,6 +2,7 @@
 #include "NumberPiece.h"
 #include "Piece2048Type.h"
 #include "Empty.h"
+#include "Destroy.h"
 #include <stdio.h>
 
 NumberPiece2048::NumberPiece2048(int factor)
@@ -58,6 +59,12 @@ bool NumberPiece2048::canMovedBy(const Board* board, Piece* source, Pos2D src) c
         && number->value() == value()
         && !number->merge() && !merge())
       return true;
+  }
+  else if(source->type() == Piece2048Type::DESTROY)
+  {
+    Destroy2048Piece* destroy= dynamic_cast<Destroy2048Piece*>(source);
+    destroy->destroyRequest();
+    return true;
   }
 
   return false;
