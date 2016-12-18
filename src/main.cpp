@@ -9,7 +9,7 @@
 #include "Game2048/Game2048Variante1.h"
 #include "Game2048/Game2048Variante2.h"
 #include "Game2048/Game2048Variante3.h"
-
+#include "Game2048/Game2048Variante4.h"
 
 
 using namespace std;
