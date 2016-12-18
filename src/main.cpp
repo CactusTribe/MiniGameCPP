@@ -7,6 +7,8 @@
 #include "GameSokoban/Sokoban.h"
 #include "Game2048/Game2048.h"
 #include "Game2048/Game2048Variante1.h"
+#include "Game2048/Game2048Variante2.h"
+
 
 using namespace std;
 using namespace sf;
@@ -21,7 +23,7 @@ int main(int argc, char** argv)
     PlayerRobot j_robot("Jean le Robot");
     //Taquin game("Taquin", 4, j_human);
     //Sokoban game("Sokoban", 8, j_human);
-    Game2048Variante1 game("2048", 4, j_human);
+    Game2048Variante2 game("2048", 4, j_human);
 
     IHM render(600, "Projet :: Langages a objets avances M1 :: Joaquim Lefranc et Jerome Skoda");
 

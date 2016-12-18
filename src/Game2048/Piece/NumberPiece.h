@@ -12,7 +12,7 @@ class NumberPiece2048 : public Piece2048 {
     NumberPiece2048& increase();
     int factor() const;
     int value() const;
-
+    bool isSigned() const;
     virtual bool canMovedBy(const Board* board, Piece* source, Pos2D src) const;
     virtual bool onMovedBy(Board* board, Piece* source, Pos2D src);
     virtual bool canMovedTo(const Board* board, Piece* target, Pos2D dst) const;
@@ -21,6 +21,7 @@ class NumberPiece2048 : public Piece2048 {
   private:
     const int _factor;
     int _value;
+    bool _signed;
 };
 
 #endif

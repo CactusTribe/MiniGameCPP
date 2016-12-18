@@ -108,7 +108,14 @@ void Game2048::action(bool hasEvent, Event e)
           {
             cursor->merge(false);
             while(_board.canMoveRel(cursor, dir))
+            {
               _board.moveRel(cursor, dir);
+              if(cursor->isDestroy())
+              {
+                delete cursor;
+                break;
+              }
+            }
           }
         }
       }

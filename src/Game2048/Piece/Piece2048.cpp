@@ -21,3 +21,15 @@ Piece2048& Piece2048::merge( bool merge )
   _merge= merge;
   return *this;
 }
+
+bool Piece2048::isDestroy() const
+{
+  return _destroy;
+}
+
+void Piece2048::destroyRequest()
+{
+  _destroy = true;
+}
+
+

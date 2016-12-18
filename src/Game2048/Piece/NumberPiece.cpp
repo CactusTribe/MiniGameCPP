@@ -2,11 +2,13 @@
 #include "NumberPiece.h"
 #include "Piece2048Type.h"
 #include "Empty.h"
+#include <stdio.h>
 
 NumberPiece2048::NumberPiece2048(int factor)
-: Piece2048( Piece2048Type::NUMBER, std::to_string(factor) ), _factor(factor)
+: Piece2048( Piece2048Type::NUMBER, std::to_string(factor)), _factor(abs(factor))
 {
-  _value= _factor;
+  _value= abs(_factor);
+  _signed= factor < 0;
   switch(_factor)
   {
     case 2:
@@ -35,10 +37,15 @@ int NumberPiece2048::factor() const
   return _factor;
 }
 
+bool NumberPiece2048::isSigned() const
+{
+  return _signed;
+}
+
 NumberPiece2048& NumberPiece2048::increase()
 {
   _value = _value * _factor;
-  text(std::to_string(_value) );
+  text( (isSigned()?"-":"") +  std::to_string(_value) );
   return *this;
 }
 
@@ -60,11 +67,13 @@ bool NumberPiece2048::onMovedBy(Board* board, Piece* source, Pos2D src)
 {
   if(source->type() == Piece2048Type::NUMBER)
   {
-    dynamic_cast<NumberPiece2048*>(source)
-      ->increase()
-      .merge(true);
+    NumberPiece2048* p= dynamic_cast<NumberPiece2048*>(source);
+    if(p->isSigned() != isSigned())
+      p->destroyRequest();
+    else
+      p->increase().merge(true);
+    delete this;
   }
-  delete this;
   return false;
 }
 
@@ -75,6 +84,12 @@ bool NumberPiece2048::canMovedTo(const Board* board, Piece* target, Pos2D dst) c
 
 bool NumberPiece2048::onMovedTo(Board* board, Piece* target, Pos2D dst)
 {
+  if(isDestroy())
+  {
+    board->push(new Empty2048Piece(), pos());
+    board->push(new Empty2048Piece(), dst);
+    return true;
+  }
   board->push(new Empty2048Piece(), pos());
   return false;
 }

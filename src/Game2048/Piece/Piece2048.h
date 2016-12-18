@@ -11,8 +11,13 @@ class Piece2048 : public StringPiece {
     bool merge() const;
     Piece2048& merge( bool merge );
 
+    bool isDestroy() const;
+    void destroyRequest();
+
+
   private:
     bool _merge= false;
+    bool _destroy= false;
 };
 
 #endif
