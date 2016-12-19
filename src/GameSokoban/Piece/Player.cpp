@@ -8,6 +8,8 @@ SokobanPlayerPiece::SokobanPlayerPiece()
 
 SokobanPlayerPiece::~SokobanPlayerPiece()
 {
+  if(_store)
+    delete _store;
 }
 
 bool SokobanPlayerPiece::onMovedTo(Board* board, Piece* target, Pos2D dst)

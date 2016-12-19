@@ -8,6 +8,8 @@ SokobanBoxPiece::SokobanBoxPiece()
 
 SokobanBoxPiece::~SokobanBoxPiece()
 {
+  if(_store)
+    delete _store;
 }
 
 bool SokobanBoxPiece::isGood() const
