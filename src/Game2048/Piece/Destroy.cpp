@@ -3,8 +3,9 @@
 #include "Empty.h"
 
 Destroy2048Piece::Destroy2048Piece()
-  : Piece2048(Piece2048Type::DESTROY, "DESTROY")
+  : Piece2048(Piece2048Type::DESTROY, "")
 {
+  Piece2048::StringPiece::_background.loadFromFile("sprites/Destroy.png");
 }
 
 Destroy2048Piece::~Destroy2048Piece()
