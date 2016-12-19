@@ -26,7 +26,7 @@ $(OBJ_FILES): $(BIN_DIR)/%.o : $(SRC_DIR)/%.cpp
 	$(CPP) -c -o $@ $^
 
 run:
-	./$(EXEC_FILE)
+	./$(EXEC_FILE) ${jeu} ${joueur} ${grille}
 
 clean:
 	rm -rf $(BIN_DIR)/*.o

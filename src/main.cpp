@@ -1,4 +1,7 @@
 #include <iostream>
+#include <cstring>
+#include <cstdlib>
+
 #include "Shared/IHM.h"
 #include "Shared/Game.h"
 #include "Shared/Player/PlayerHuman.h"
@@ -17,16 +20,61 @@ using namespace sf;
 
 int main(int argc, char** argv)
 {
+
+  if(argc < 2)
+  {
+    cerr << "Usage: make run jeu=[taquin|sobokan|2048|2048-variante[1-4]|2048-allvariante] joueur=[humain|robot] grille=[4-200]" << endl;
+    exit(1);
+  }
+
+  int size= atoi(argv[3]);
+  if(size < 4 || size > 200)
+  {
+    cerr << "parram: grille invalide" << endl;
+    cerr << "grille=[4-200]" << endl;
+    return EXIT_FAILURE;
+  }
+
+  Player* player;
+  if(std::strcmp(argv[2], "humain") == 0)
+    player= new PlayerHuman("Lois l'Humain");
+  else if(std::strcmp(argv[2], "robot") == 0)
+    player= new PlayerRobot("Jean le Robot");
+  else
+  {
+      cerr << "parram: Joueur invalide" << endl;
+      cerr << "joueur=[humain|robot]" << endl;
+      return EXIT_FAILURE;
+  }
+
+  Game* game;
+  if(std::strcmp(argv[1], "taquin") == 0)
+    game= new Taquin("Taquin", size, *player);
+  else if(std::strcmp(argv[1], "sobokan") == 0)
+    game= new Sokoban("Sokoban", size, *player);
+  else if(std::strcmp(argv[1], "2048") == 0)
+    game= new Game2048("2048 original", size, *player);
+  else if(std::strcmp(argv[1], "2048-variante1") == 0)
+    game= new Game2048Variante1("2048 Variante 1", size, *player);
+  else if(std::strcmp(argv[1], "2048-variante2") == 0)
+    game= new Game2048Variante2("2048 Variante 2", size, *player);
+  else if(std::strcmp(argv[1], "2048-variante3") == 0)
+    game= new Game2048Variante3("2048 Variante 3", size, *player);
+  else if(std::strcmp(argv[1], "2048-variante4") == 0)
+    game= new Game2048Variante4("2048 Variante 4", size, *player);
+  else if(std::strcmp(argv[1], "2048-allvariante") == 0)
+    game= new Game2048("2048 All Variante", size, *player);
+  else
+  {
+    cerr << "parram: Jeu invalide" << endl;
+    cerr << "jeu=[taquin|sobokan|2048|2048-variante[1-4]|2048-allvariante]" << endl;
+    delete player;
+    return EXIT_FAILURE;
+  }
+
   try
   {
     std::srand(std::time(0));
-
-    PlayerHuman j_human("Lois l'Human");
-    PlayerRobot j_robot("Jean le Robot");
-    //Taquin game("Taquin", 4, j_human);
-    //Sokoban game("Sokoban", 8, j_human);
-    Game2048Variante2 game("2048", 4, j_human);
-
 
     IHM render(600, "Projet :: Langages a objets avances M1 :: Joaquim Lefranc et Jerome Skoda");
 
@@ -34,10 +82,10 @@ int main(int argc, char** argv)
     while(render.app()->isOpen())
     {
       bool newEvent= render.app()->pollEvent(event);
-      game.action( newEvent, event);
+      game->action( newEvent, event);
       if(newEvent && (event.type == Event::Closed))
         return 0;
-      game.draw(render);
+      game->draw(render);
       sleep(milliseconds(20));
     }
   }
@@ -53,5 +101,5 @@ int main(int argc, char** argv)
   {
     std::cerr << "Unknown exception caught\n";
   }
-  return 0;
+  return EXIT_SUCCESS;
 }
