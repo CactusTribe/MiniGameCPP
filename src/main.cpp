@@ -13,7 +13,7 @@
 #include "Game2048/Game2048Variante2.h"
 #include "Game2048/Game2048Variante3.h"
 #include "Game2048/Game2048Variante4.h"
-
+#include "Game2048/Game2048VarianteAll.h"
 
 using namespace std;
 using namespace sf;
@@ -63,7 +63,7 @@ int main(int argc, char** argv)
   else if(std::strcmp(argv[1], "2048-variante4") == 0)
     game= new Game2048Variante4("2048 Variante 4", size, *player);
   else if(std::strcmp(argv[1], "2048-allvariante") == 0)
-    game= new Game2048("2048 All Variante", size, *player);
+    game= new Game2048VarianteAll("2048 Variante All", size, *player);
   else
   {
     cerr << "parram: Jeu invalide" << endl;
