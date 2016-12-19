@@ -15,8 +15,8 @@ Destroy2048Piece::~Destroy2048Piece()
 bool Destroy2048Piece::onMovedBy(Board* board, Piece* source, Pos2D src)
 {
   Piece2048* p= dynamic_cast<Piece2048*>(source);
-  if(p)
-    p->destroyRequest();
+  p->destroyRequest();
+  delete this;
   return false;
 }
 

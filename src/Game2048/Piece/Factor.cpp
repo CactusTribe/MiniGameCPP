@@ -58,6 +58,7 @@ bool Factor2048Piece::onMovedBy(Board* board, Piece* source, Pos2D src)
     Destroy2048Piece* p= dynamic_cast<Destroy2048Piece*>(source);
     p->destroyRequest();
   }
+  delete this;
   return false;
 }
 
@@ -66,6 +67,7 @@ bool Factor2048Piece::onMovedTo(Board* board, Piece* target, Pos2D dst)
   if(isDestroy())
   {
     board->push(new Empty2048Piece(), pos());
+    board->push(new Empty2048Piece(), dst);
     return true;
   }
   board->push(new Empty2048Piece(), pos());

@@ -109,7 +109,6 @@ bool NumberPiece2048::onMovedBy(Board* board, Piece* source, Pos2D src)
       p->destroyRequest();
     else
       p->increase().merge(true);
-    delete this;
   }
   else if(source->type() == Piece2048Type::DESTROY)
   {
@@ -126,6 +125,7 @@ bool NumberPiece2048::onMovedBy(Board* board, Piece* source, Pos2D src)
     merge(true);
     p->destroyRequest();
   }
+  delete this;
   return false;
 }
 
