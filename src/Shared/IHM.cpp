@@ -4,7 +4,7 @@ using namespace sf;
 
 IHM::IHM(int window_size, const std::string& title)
   : _window_size(window_size) {
-  _app = new RenderWindow(VideoMode(_window_size, _window_size, 32), title);
+  _app = new RenderWindow(VideoMode(_window_size, _window_size, 32), title, sf::Style::Titlebar | sf::Style::Close);
 }
 
 IHM::~IHM() {
