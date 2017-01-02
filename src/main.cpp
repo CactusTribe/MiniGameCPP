@@ -21,6 +21,8 @@ using namespace sf;
 int main(int argc, char** argv)
 {
 
+  srand(time(NULL));
+
   if(argc < 2)
   {
     cerr << "Usage: make run jeu=[taquin|sobokan|2048|2048-variante[1-4]|2048-allvariante] joueur=[humain|robot] grille=[4-200]" << endl;
