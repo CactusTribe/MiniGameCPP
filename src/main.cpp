@@ -83,8 +83,44 @@ int main(int argc, char** argv)
     {
       bool newEvent= render.app()->pollEvent(event);
       game->action( newEvent, event);
+
       if(newEvent && (event.type == Event::Closed))
         return 0;
+      else if(newEvent && (event.type == Event::KeyPressed)){
+        switch(event.key.code)
+        {
+          case Keyboard::R:
+            if(std::strcmp(argv[1], "taquin") == 0)
+              game= new Taquin("Taquin", size, *player);
+            else if(std::strcmp(argv[1], "sobokan") == 0)
+              game= new Sokoban("Sokoban", size, *player);
+            else if(std::strcmp(argv[1], "2048") == 0)
+              game= new Game2048("2048 original", size, *player);
+            else if(std::strcmp(argv[1], "2048-variante1") == 0)
+              game= new Game2048Variante1("2048 Variante 1", size, *player);
+            else if(std::strcmp(argv[1], "2048-variante2") == 0)
+              game= new Game2048Variante2("2048 Variante 2", size, *player);
+            else if(std::strcmp(argv[1], "2048-variante3") == 0)
+              game= new Game2048Variante3("2048 Variante 3", size, *player);
+            else if(std::strcmp(argv[1], "2048-variante4") == 0)
+              game= new Game2048Variante4("2048 Variante 4", size, *player);
+            else if(std::strcmp(argv[1], "2048-allvariante") == 0)
+              game= new Game2048VarianteAll("2048 Variante All", size, *player);
+            else
+            {
+              cerr << "parram: Jeu invalide" << endl;
+              cerr << "jeu=[taquin|sobokan|2048|2048-variante[1-4]|2048-allvariante]" << endl;
+              delete player;
+              return EXIT_FAILURE;
+            }
+            break;
+            
+          default:
+            break;
+          
+        }
+      }
+
       game->draw(render);
       sleep(milliseconds(20));
     }
