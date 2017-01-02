@@ -35,6 +35,17 @@ void Game::draw(IHM& render)
         }
       }
     }
+
+    if(_over){
+      // Affichage du background
+      sf::Sprite sBackground;
+      sf::Texture end;
+      end.loadFromFile("sprites/end_game.png");
+      sBackground.setTexture(end);
+      sBackground.setPosition(0, 0);;
+      render.app()->draw(sBackground);
+    }
+
     // Affichage de la fenêtre à l'écran
     render.app()->display();
 }
