@@ -92,4 +92,12 @@ void Sokoban::action(bool hasEvent, Event e)
       default:
       break;
     }
+
+  _over= true;
+  for(std::vector<Piece*>::iterator it= _pieceBox.begin(); it != _pieceBox.end(); ++it)
+  {
+      SokobanBoxPiece* ird = dynamic_cast<SokobanBoxPiece*>(*it);
+      _over&= ird->isGood();
+  }
+
 }

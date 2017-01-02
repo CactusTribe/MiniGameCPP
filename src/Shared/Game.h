@@ -18,12 +18,14 @@ public:
   const std::string name() const;
   virtual void action(bool hasEvent, sf::Event e)=0;
   void draw(IHM& render);
+  bool isOver() const;
 
 protected:
 
   const std::string _name;
   Board _board;
   Player& _player;
+  bool _over;
 
 };
 
