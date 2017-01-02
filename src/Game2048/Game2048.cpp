@@ -123,9 +123,32 @@ void Game2048::action(bool hasEvent, Event e)
 
   std::vector<Pos2D> list= _getEmptyPieceList(&_board);
   if(list.size() > 0)
+  {
     _addRandomPiece(&_board, list, pieceRandomDrawing());
+    _over= false;
+  }
   else
   {
-    //you lose
+    // check end game
+    for(int x=0; x<_board.size(); x++)
+    {
+      for(int y=0; y<_board.size(); y++)
+      {
+        Pos2D pos(x,y);
+        if(_board.has(pos))
+        {
+          Piece2048* cursor= dynamic_cast<Piece2048*>(_board.get(pos));
+          if(cursor)
+          {
+            if( _board.canMoveRel(cursor, Direction::one_up)
+              || _board.canMoveRel(cursor, Direction::one_left)
+              || _board.canMoveRel(cursor, Direction::one_right)
+              || _board.canMoveRel(cursor, Direction::one_down))
+              return;
+          }
+        }
+      }
+    }
+    _over= true;
   }
 }

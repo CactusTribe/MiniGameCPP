@@ -25,7 +25,7 @@ protected:
   const std::string _name;
   Board _board;
   Player& _player;
-  bool _over;
+  bool _over= false;
 
 };
 
