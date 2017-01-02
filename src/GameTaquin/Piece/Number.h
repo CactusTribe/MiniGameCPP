@@ -10,6 +10,10 @@ class TaquinNumberPiece : public StringPiece {
 
     virtual ~TaquinNumberPiece();
 
+    int value() const;
+
+  private:
+    const int _value;
 };
 
 #endif

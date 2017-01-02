@@ -25,15 +25,15 @@ int main(int argc, char** argv)
 
   if(argc < 2)
   {
-    cerr << "Usage: make run jeu=[taquin|sobokan|2048|2048-variante[1-4]|2048-allvariante] joueur=[humain|robot] grille=[4-200]" << endl;
+    cerr << "Usage: make run jeu=[taquin|sobokan|2048|2048-variante[1-4]|2048-allvariante] joueur=[humain|robot] grille=[2-22]" << endl;
     exit(1);
   }
 
   int size= atoi(argv[3]);
-  if(size < 4 || size > 200)
+  if(size < 2 || size > 200)
   {
     cerr << "parram: grille invalide" << endl;
-    cerr << "grille=[4-200]" << endl;
+    cerr << "grille=[2-22]" << endl;
     return EXIT_FAILURE;
   }
 
@@ -90,6 +90,7 @@ int main(int argc, char** argv)
         switch(event.key.code)
         {
           case Keyboard::R:
+            delete game;
             if(std::strcmp(argv[1], "taquin") == 0)
               game= new Taquin("Taquin", size, *player);
             else if(std::strcmp(argv[1], "sobokan") == 0)
@@ -114,10 +115,10 @@ int main(int argc, char** argv)
               return EXIT_FAILURE;
             }
             break;
-            
+
           default:
             break;
-          
+
         }
       }
 

@@ -3,6 +3,7 @@
 #include <vector>
 #include "Taquin.h"
 #include "../Shared/Board/Pos2D.h"
+#include "Piece/TaquinPieceType.h"
 
 using namespace sf;
 
@@ -78,6 +79,36 @@ void Taquin::action(bool hasEvent, Event e)
     _switchPiece(&_board, dst, _cursorPos);
     _cursorPos= dst;
   }
+
+  for(int x=0; x<_board.size(); x++)
+  {
+    for(int y=0; y<_board.size(); y++)
+    {
+      if(!_board.has(Pos2D(x,y)))
+        continue;
+
+      Piece* p= _board.get(Pos2D(x,y));
+      if(p->type() == TaquinPieceType::NUMBER)
+      {
+        TaquinNumberPiece* number= dynamic_cast<TaquinNumberPiece*>(p);
+        if(!number)
+          continue;
+
+        if(number->value() != x+y*_board.size()+1)
+        {
+          _over= false;
+          return;
+        }
+      }
+      else
+      {
+        if(x != _board.size()-1 && y != _board.size()-1)
+        {
+          _over= false;
+          return;
+        }
+      }
+    }
+  }
+  _over= true;
 }
-
-
