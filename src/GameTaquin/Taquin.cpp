@@ -58,16 +58,16 @@ void Taquin::action(bool hasEvent, Event e)
 
     switch(_player.choiceAction(hasEvent, e) ){
       case PlayerAction::Up:
-        dst= _cursorPos + Direction::one_up;
-      break;
-      case PlayerAction::Down:
         dst= _cursorPos + Direction::one_down;
       break;
+      case PlayerAction::Down:
+        dst= _cursorPos + Direction::one_up;
+      break;
       case PlayerAction::Left:
-        dst= _cursorPos + Direction::one_left;
+        dst= _cursorPos + Direction::one_right;
       break;
       case PlayerAction::Right:
-        dst= _cursorPos + Direction::one_right;
+        dst= _cursorPos + Direction::one_left;
       break;
       default:
       break;
