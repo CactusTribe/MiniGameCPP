@@ -33,3 +33,6 @@ clean:
 
 mrproper: clean
 	rm -rf $(BIN_DIR)/*
+
+tar:
+	tar cvf LOA_M1_Lefranc_Skoda.tar fonts/ Rapport/ sprites/ src/ Makefile Rapport.pdf README UML_v1.2.pdf UML_v1.2_pages.pdf
