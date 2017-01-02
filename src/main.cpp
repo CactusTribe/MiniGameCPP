@@ -20,7 +20,7 @@ using namespace sf;
 
 int main(int argc, char** argv)
 {
-
+  // init random
   srand(time(NULL));
 
   if(argc < 2)
@@ -76,8 +76,6 @@ int main(int argc, char** argv)
 
   try
   {
-    std::srand(std::time(0));
-
     IHM render(600, "Projet :: Langages a objets avances M1 :: Joaquim Lefranc et Jerome Skoda");
 
     Event event;
